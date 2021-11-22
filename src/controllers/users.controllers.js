@@ -50,6 +50,20 @@ const deleteUser = (req, res) => {
     });
 }
 
+const test = (req, res) => {
+
+  let {id} = req.body;
+
+  mysqlConnection.query('DELETE FROM usuario WHERE id = ?',[id], (err, rows) => {
+      if(!err) {
+          // console.log(rows);
+      res.json({"results":rows})
+      } else {
+        console.log(err);
+      }
+    });
+}
+
 
 //obtener datos
   const getData = (req, res) => {
