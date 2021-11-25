@@ -5,9 +5,9 @@ const jwt = require('jsonwebtoken');
 //crear usuario
 const createUser = (req, res) => {
 
-    let {email,password,nombre} = req.body;
+    let {email,password,} = req.body;
        
-    mysqlConnection.query('INSERT INTO `usuario`(`email`, `password`,`nombre`) VALUES (?,?,?)',[email,password,nombre], (err, rows) => {
+    mysqlConnection.query('INSERT INTO `users`(`email`,`password`) VALUES (?,?)',[email,password], (err, rows) => {
         if(!err) {
           res.json(rows);
         } else {
@@ -20,9 +20,9 @@ const createUser = (req, res) => {
 
 const modifyUser = (req, res) => {
 
-  let {email,password,nombre,id} = req.body;
+  let {email,password,id} = req.body;
 
-  mysqlConnection.query('UPDATE usuario SET email = ?, password = ?, nombre = ? WHERE id = ?',[email,password,nombre,id], (err, rows) => {
+  mysqlConnection.query('UPDATE usuario SET email = ?, password = ? WHERE id = ?',[email,password,id], (err, rows) => {
       if(!err) {
           // console.log(rows);
       res.json({"results":rows})
@@ -86,10 +86,9 @@ const login = (req,res)=>{
   if(!email) return res.status(400).json({"msg":"verifica tu email"});
   if(!password) return res.status(400).json({"msg":"verifica tu password"});
 
-  mysqlConnection.query('SELECT id FROM `usuario` WHERE email = ? AND password = ?',[email,password],(err,rows)=>{
+  mysqlConnection.query('SELECT id FROM `users` WHERE email = ? AND password = ?',[email,password],(err,rows)=>{
 
     if(!err){
-    
       let userID = rows[0].id;
       if(!rows.length) return res.json({"msg":"Email o Password incorrecto"});
       const token = jwt.sign({userID},"process.env.JWT_KEY")
