@@ -54,7 +54,7 @@ const deleteUser = (req, res) => {
 
 const test = (req, res) => {
 
-  let {id} = req.params;
+  let {id} = req.body;
 
   mysqlConnection.query('DELETE FROM users WHERE id = ?',[id], (err, rows) => {
       if(!err) {
