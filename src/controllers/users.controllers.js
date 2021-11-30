@@ -7,7 +7,7 @@ const createUser = (req, res) => {
 
     let {email,password,} = req.body;
        
-    mysqlConnection.query('INSERT INTO `users`(`email`,`password`) VALUES (?,?)',[email,password], (err, rows) => {
+    mysqlConnection.query('INSERT INTO `users`(`email`, `password`) VALUES (?,?)',[email,password], (err, rows) => {
         if(!err) {
           res.json(rows);
         } else {
@@ -22,7 +22,9 @@ const modifyUser = (req, res) => {
 
   let {email,password,id} = req.body;
 
-  mysqlConnection.query('UPDATE usuario SET email = ?, password = ? WHERE id = ?',[email,password,id], (err, rows) => {
+
+  mysqlConnection.query('UPDATE users SET email = ?, password = ? WHERE id = ?',[email,password,id], (err, rows) => {
+
       if(!err) {
           // console.log(rows);
       res.json({"results":rows})
@@ -40,7 +42,7 @@ const deleteUser = (req, res) => {
 
   let {id} = req.body;
 
-  mysqlConnection.query('DELETE FROM usuario WHERE id = ?',[id], (err, rows) => {
+  mysqlConnection.query('DELETE FROM users WHERE id = ?',[id], (err, rows) => {
       if(!err) {
           // console.log(rows);
       res.json({"results":rows})
@@ -54,7 +56,7 @@ const test = (req, res) => {
 
   let {id} = req.body;
 
-  mysqlConnection.query('DELETE FROM usuario WHERE id = ?',[id], (err, rows) => {
+  mysqlConnection.query('DELETE FROM users WHERE id = ?',[id], (err, rows) => {
       if(!err) {
           // console.log(rows);
       res.json({"results":rows})
@@ -68,7 +70,7 @@ const test = (req, res) => {
 //obtener datos
   const getData = (req, res) => {
 
-    mysqlConnection.query('SELECT * FROM `usuario`', (err, rows) => {
+    mysqlConnection.query('SELECT * FROM `users`', (err, rows) => {
         if(!err) {
             // console.log(rows);
         res.json({"results":rows})
