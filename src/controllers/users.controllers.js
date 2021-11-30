@@ -9,7 +9,7 @@ const createUser = (req, res) => {
 
     let {email,password,} = req.body;
        
-    mysqlConnection.query('INSERT INTO `users`(`email`,`password`) VALUES (?,?)',[email,password], (err, rows) => {
+    mysqlConnection.query('INSERT INTO `users`(`email`, `password`) VALUES (?,?)',[email,password], (err, rows) => {
         if(!err) {
           res.json(rows);
         } else {
