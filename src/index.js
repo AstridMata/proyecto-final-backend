@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true })) // for parsing application/x-www
 
 //rutas publicas
 app.use(publicRoutes);
+// app.use(bodyParser());
 
 //colocar aqui el middleware de JWT
 
