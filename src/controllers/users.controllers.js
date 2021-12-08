@@ -94,14 +94,28 @@ const login = (req,res)=>{
     if(!err){
       let userID = rows[0].id;
       if(!rows.length) return res.json({"msg":"Email o Password incorrecto"});
-      const token = jwt.sign({userID},"process.env.JWT_KEY")
+      const token = jwt.sign({userID}, 'process.env.JWT_KEY')
+      // const token = jwt.sign({userID},"process.env.JWT_KEY", { expiresIn: 60 * 60});
       return res.json({"id":userID,token});
     }else{
       console.log(err);
     }
   })
 }
+const getprofileauthorization = (req,res)=>{
+    
+  let{userID} = req.user
+  console.log(req.user.userID);
+  // res.json("ok")
+  mysqlConnection.query('SELECT * FROM `users` WHERE id=?',[userID],(err, rows) => {
+      if(!err) {
+        res.json(rows);
+      } else {
+        console.log(err);
+      }
+    });
 
+}
 
   //exportando los controladores
   exports.createUser = createUser;
@@ -109,4 +123,5 @@ const login = (req,res)=>{
   exports.deleteUser = deleteUser;
   exports.getData = getData;
   exports.login = login;
+  exports.getprofileauthorization = getprofileauthorization;
   

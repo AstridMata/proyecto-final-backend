@@ -20,8 +20,10 @@ router.get('/tasks',getTask);
 router.put('/tasks/:id',modifyTask);
 router.delete('/tasks/:id',deleteTask);
 
-// login
+// login    //ruta   //controlador
 router.post('/login',login);
+
+
 
 
 module.exports = router;
